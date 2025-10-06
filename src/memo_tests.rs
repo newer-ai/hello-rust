@@ -5,6 +5,15 @@ mod tests {
         atomic::{AtomicBool, Ordering},
     };
 
+    struct TestDrop {
+        dropped: Arc<AtomicBool>,
+    }
+    impl Drop for TestDrop {
+        fn drop(&mut self) {
+            self.dropped.store(true, Ordering::SeqCst);
+        }
+    }
+
     #[test]
     fn test_move_ownership() {
         let s1 = String::from("hello"); // 在堆上分配内存
@@ -92,15 +101,6 @@ mod tests {
 
     #[test]
     fn test_drop() {
-        struct TestDrop {
-            dropped: Arc<AtomicBool>,
-        }
-        impl Drop for TestDrop {
-            fn drop(&mut self) {
-                self.dropped.store(true, Ordering::SeqCst);
-            }
-        }
-
         let dropped = Arc::new(AtomicBool::new(false));
         {
             let _x = TestDrop {
@@ -124,5 +124,43 @@ mod tests {
         // println!("{:?}", v1); // ❌ 编译错误：v1 已经失效
         println!("{:?}", v2);
         assert_eq!(v2, vec![1, 2, 3]);
+    }
+
+    #[test]
+    fn test_shadowing_and_drop() {
+        let dropped_1 = Arc::new(AtomicBool::new(false));
+        let dropped_2 = Arc::new(AtomicBool::new(false));
+        let _x = TestDrop {
+            dropped: dropped_1.clone(),
+        };
+        let _x = TestDrop {
+            dropped: dropped_2.clone(),
+        };
+
+        assert_eq!(
+            dropped_1.load(Ordering::SeqCst),
+            false,
+            "drop() should be called"
+        );
+        assert_eq!(
+            _x.dropped.load(Ordering::SeqCst),
+            false,
+            "drop() should be called"
+        );
+    }
+
+    #[test]
+    fn test_shadowing_and_drop2() {
+        struct Tracer(&'static str);
+
+        impl Drop for Tracer {
+            fn drop(&mut self) {
+                println!("Dropping {}", self.0);
+            }
+        }
+
+        let _t = Tracer("first");
+        let _t = Tracer("second");
+        println!("done");
     }
 }
