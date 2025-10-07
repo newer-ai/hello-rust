@@ -1,10 +1,13 @@
 use std::sync::{Arc, Mutex};
 
+#[allow(dead_code)]
 trait Animal {
     fn speak(&self);
 }
 
+#[allow(dead_code)]
 struct Dog;
+#[allow(dead_code)]
 struct Cat;
 
 impl Animal for Dog {
@@ -19,6 +22,7 @@ impl Animal for Cat {
     }
 }
 
+#[allow(dead_code)]
 struct Node {
     value: Box<dyn Animal + Send>,
     next: Option<Arc<Mutex<Node>>>,
@@ -28,7 +32,7 @@ struct Node {
 mod tests {
     use super::{Cat, Dog, Node};
     use std::{
-        cell::{OnceCell, RefCell},
+        cell::RefCell,
         rc::Rc,
         sync::{Arc, Mutex, OnceLock},
         thread,
@@ -56,8 +60,8 @@ mod tests {
     #[test]
     fn test_rc_2() {
         let a = Rc::new(5);
-        let b = Rc::clone(&a);
-        let b = Rc::clone(&a);
+        let _b = Rc::clone(&a);
+        let _b = Rc::clone(&a);
 
         fn do_something(v: Rc<i32>) {
             println!("{}", v);
