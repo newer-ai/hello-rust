@@ -71,7 +71,7 @@ mod tests {
         do_something(c); // c 转移所有权，do_something执行完成后，作用域结束
 
         {
-            let d = Rc::clone(&a);
+            let _d = Rc::clone(&a);
             assert_eq!(Rc::strong_count(&a), 4);
         } // 子作用域结束，d释放引用，值引用数减一
 
