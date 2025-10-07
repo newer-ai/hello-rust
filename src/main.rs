@@ -1,3 +1,5 @@
+mod closure_tests;
+mod fn_tests;
 mod iterator_tests;
 mod memo_tests;
 mod smart_point_tests;
