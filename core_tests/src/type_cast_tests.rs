@@ -358,10 +358,7 @@ mod tests {
         let str = "Hello, World!".to_string();
         let bytes: Vec<u8> = str.into_bytes();
 
-        assert_eq!(
-            bytes,
-            [72, 101, 108, 108, 111, 44, 32, 87, 111, 114, 108, 100, 33],
-        );
+        assert_eq!(bytes, [72, 101, 108, 108, 111, 44, 32, 87, 111, 114, 108, 100, 33],);
     }
 
     #[test]
@@ -369,10 +366,7 @@ mod tests {
         let str = "Hello, World!";
         let bytes: &[u8] = str.as_bytes();
 
-        assert_eq!(
-            bytes,
-            [72, 101, 108, 108, 111, 44, 32, 87, 111, 114, 108, 100, 33],
-        );
+        assert_eq!(bytes, [72, 101, 108, 108, 111, 44, 32, 87, 111, 114, 108, 100, 33],);
     }
 
     #[test]

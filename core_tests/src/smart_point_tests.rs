@@ -128,24 +128,13 @@ mod tests {
 
     #[test]
     fn test_arc_mutex_multithreads() {
-        let node_3 = Arc::new(Mutex::new(Node {
-            value: Box::new(Dog),
-            next: None,
-        }));
-        let node_2 = Arc::new(Mutex::new(Node {
-            value: Box::new(Cat),
-            next: Some(Arc::clone(&node_3)),
-        }));
-        let node_1 = Arc::new(Mutex::new(Node {
-            value: Box::new(Dog),
-            next: Some(Arc::clone(&node_2)),
-        }));
+        let node_3 = Arc::new(Mutex::new(Node { value: Box::new(Dog), next: None }));
+        let node_2 =
+            Arc::new(Mutex::new(Node { value: Box::new(Cat), next: Some(Arc::clone(&node_3)) }));
+        let node_1 =
+            Arc::new(Mutex::new(Node { value: Box::new(Dog), next: Some(Arc::clone(&node_2)) }));
 
-        let nodes = vec![
-            Arc::clone(&node_1),
-            Arc::clone(&node_2),
-            Arc::clone(&node_3),
-        ];
+        let nodes = vec![Arc::clone(&node_1), Arc::clone(&node_2), Arc::clone(&node_3)];
 
         let handles: Vec<_> = nodes
             .into_iter()

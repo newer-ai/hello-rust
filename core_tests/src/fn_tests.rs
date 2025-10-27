@@ -56,12 +56,8 @@ mod tests {
             largest
         }
 
-        let items = vec![
-            "abc".to_string(),
-            "acd".to_string(),
-            "bcd".to_string(),
-            "dba".to_string(),
-        ];
+        let items =
+            vec!["abc".to_string(), "acd".to_string(), "bcd".to_string(), "dba".to_string()];
 
         assert_eq!(find_largest(&items), "dba");
     }
@@ -161,10 +157,7 @@ mod tests {
             y: i32,
         }
         fn move_by(Point { x, y }: Point, dx: i32, dy: i32) -> Point {
-            Point {
-                x: x + dx,
-                y: y + dy,
-            }
+            Point { x: x + dx, y: y + dy }
         }
 
         let p = Point { x: 3, y: 7 };

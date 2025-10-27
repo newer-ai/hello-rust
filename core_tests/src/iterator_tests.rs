@@ -31,10 +31,7 @@ mod tests {
         let words = ["Hello", "World"];
         let chars: Vec<_> = words.iter().flat_map(|w| w.chars()).collect();
 
-        assert_eq!(
-            chars,
-            vec!['H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd']
-        );
+        assert_eq!(chars, vec!['H', 'e', 'l', 'l', 'o', 'W', 'o', 'r', 'l', 'd']);
     }
 
     #[test]
@@ -125,10 +122,7 @@ mod tests {
     #[test]
     fn test_iterator_sorted_by() {
         let nums = [1, 3, 2, 5, 4];
-        let sorted: Vec<_> = nums
-            .iter()
-            .sorted_by(|x, y| Ord::cmp(*x, *y).reverse())
-            .collect();
+        let sorted: Vec<_> = nums.iter().sorted_by(|x, y| Ord::cmp(*x, *y).reverse()).collect();
 
         assert_eq!(sorted, vec![&5, &4, &3, &2, &1]);
     }

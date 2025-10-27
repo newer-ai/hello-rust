@@ -61,9 +61,7 @@ struct SpinLock {
 impl SpinLock {
     /// 创建一个未上锁的自旋锁
     fn new() -> Self {
-        Self {
-            locked: AtomicBool::new(false),
-        }
+        Self { locked: AtomicBool::new(false) }
     }
 
     /// 获取锁（阻塞直到成功）
@@ -104,9 +102,7 @@ struct Counter {
 #[allow(dead_code)]
 impl Counter {
     fn new() -> Self {
-        Self {
-            value: AtomicUsize::new(0),
-        }
+        Self { value: AtomicUsize::new(0) }
     }
 
     fn increment(&self) {
@@ -115,10 +111,7 @@ impl Counter {
 
         loop {
             let new = current + 1;
-            match self
-                .value
-                .compare_exchange(current, new, Ordering::SeqCst, Ordering::Relaxed)
-            {
+            match self.value.compare_exchange(current, new, Ordering::SeqCst, Ordering::Relaxed) {
                 Ok(_) => break,
                 Err(v) => {
                     current = v;
@@ -427,10 +420,7 @@ mod tests {
         let (tx, rx) = channel::<()>();
         drop(tx);
 
-        assert_eq!(
-            rx.try_recv(),
-            Err(std::sync::mpsc::TryRecvError::Disconnected)
-        );
+        assert_eq!(rx.try_recv(), Err(std::sync::mpsc::TryRecvError::Disconnected));
     }
 
     #[test]
@@ -591,10 +581,7 @@ mod tests {
         impl SelfReferential {
             fn new(value: &str) -> Self {
                 let value = value.to_string();
-                SelfReferential {
-                    value,
-                    pointer_to_value: None,
-                }
+                SelfReferential { value, pointer_to_value: None }
             }
 
             fn init(&mut self) {

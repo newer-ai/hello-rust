@@ -139,10 +139,7 @@ mod tests {
 
     #[test]
     fn test_struct_clone_trait() {
-        let p1 = Person {
-            name: "Alice".to_string(),
-            age: 21,
-        };
+        let p1 = Person { name: "Alice".to_string(), age: 21 };
         let p2 = p1;
 
         // println!("{:?}", p1); // ❌ 编译错误：p1 已经失效。value borrowed here after move
@@ -153,10 +150,7 @@ mod tests {
 
     #[test]
     fn test_struct_move_field_value() {
-        let p = Person {
-            name: "Alice".to_string(),
-            age: 18,
-        };
+        let p = Person { name: "Alice".to_string(), age: 18 };
 
         assert_eq!(p.name, "Alice".to_string()); // 临时变量，未发生所有权转移
         let name = p.name; // 发生了 move 操作，所有权已经转移
@@ -211,10 +205,7 @@ mod tests {
 
     #[test]
     fn test_struct_default() {
-        let c = Config {
-            debug: true,
-            ..Default::default()
-        };
+        let c = Config { debug: true, ..Default::default() };
 
         assert_eq!(c.debug, true);
         assert_eq!(c.port, 0);
@@ -222,10 +213,7 @@ mod tests {
 
     #[test]
     fn test_struct_generic() {
-        let p = Pair {
-            first: 1,
-            second: 2,
-        };
+        let p = Pair { first: 1, second: 2 };
 
         assert_eq!(p.first, 1);
         assert_eq!(p.second, 2);
@@ -266,14 +254,8 @@ mod tests {
     fn test_enum_with_data() {
         assert_eq!(Message::Quit.process(), "退出游戏");
         assert_eq!(Message::Move { x: 1, y: 3 }.process(), "移动到坐标 (1, 3)");
-        assert_eq!(
-            Message::Write("Hello".to_string()).process(),
-            "写入文本：Hello"
-        );
-        assert_eq!(
-            Message::ChangeColor(255, 100, 0).process(),
-            "颜色：(255, 100, 0)"
-        );
+        assert_eq!(Message::Write("Hello".to_string()).process(), "写入文本：Hello");
+        assert_eq!(Message::ChangeColor(255, 100, 0).process(), "颜色：(255, 100, 0)");
     }
 
     #[test]
@@ -292,11 +274,8 @@ mod tests {
     fn test_enum_if_let() {
         let msg = Message::Write("Hello".into());
 
-        let text = if let Message::Write(text) = msg {
-            Some(format!("内容：{text}"))
-        } else {
-            None
-        };
+        let text =
+            if let Message::Write(text) = msg { Some(format!("内容：{text}")) } else { None };
 
         assert_eq!(text, Some("内容：Hello".to_string()));
     }

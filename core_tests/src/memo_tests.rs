@@ -103,17 +103,11 @@ mod tests {
     fn test_drop() {
         let dropped = Arc::new(AtomicBool::new(false));
         {
-            let _x = TestDrop {
-                dropped: dropped.clone(),
-            };
+            let _x = TestDrop { dropped: dropped.clone() };
             assert_eq!(dropped.load(Ordering::SeqCst), false);
         }
 
-        assert_eq!(
-            dropped.load(Ordering::SeqCst),
-            true,
-            "drop() should be called"
-        );
+        assert_eq!(dropped.load(Ordering::SeqCst), true, "drop() should be called");
     }
 
     #[test]
@@ -130,23 +124,11 @@ mod tests {
     fn test_shadowing_and_drop() {
         let dropped_1 = Arc::new(AtomicBool::new(false));
         let dropped_2 = Arc::new(AtomicBool::new(false));
-        let _x = TestDrop {
-            dropped: dropped_1.clone(),
-        };
-        let _x = TestDrop {
-            dropped: dropped_2.clone(),
-        };
+        let _x = TestDrop { dropped: dropped_1.clone() };
+        let _x = TestDrop { dropped: dropped_2.clone() };
 
-        assert_eq!(
-            dropped_1.load(Ordering::SeqCst),
-            false,
-            "drop() should be called"
-        );
-        assert_eq!(
-            _x.dropped.load(Ordering::SeqCst),
-            false,
-            "drop() should be called"
-        );
+        assert_eq!(dropped_1.load(Ordering::SeqCst), false, "drop() should be called");
+        assert_eq!(_x.dropped.load(Ordering::SeqCst), false, "drop() should be called");
     }
 
     #[test]

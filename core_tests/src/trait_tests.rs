@@ -183,9 +183,7 @@ mod tests {
     fn test_trait_in_struct() {
         let c = Circle { radius: 10. };
         let s = Square { side: 12. };
-        let canvas = DynCanvas {
-            items: vec![Box::new(c), Box::new(s)],
-        };
+        let canvas = DynCanvas { items: vec![Box::new(c), Box::new(s)] };
 
         canvas.render_all();
     }

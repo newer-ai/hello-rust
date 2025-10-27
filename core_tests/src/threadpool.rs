@@ -90,10 +90,7 @@ impl ThreadPool {
             })
             .collect();
 
-        Self {
-            workers,
-            sender: Some(sender),
-        }
+        Self { workers, sender: Some(sender) }
     }
 
     /// 在线程池中执行 `task` 方法。
