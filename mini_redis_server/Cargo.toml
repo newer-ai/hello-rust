@@ -1,8 +1,7 @@
 [package]
-name = "mini-redis"
+name = "mini_redis_server"
 version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-mini_redis_server = { version = "0.1.0", path = "../mini_redis_server" }
 tokio = { version = "1.48.0", features = ["full"] }
