@@ -3,9 +3,4 @@
         "editor.defaultFormatter": "rust-lang.rust-analyzer"
     },
     "editor.formatOnSave": true,
-    // rust-analyzer 使用 rustfmt
-    "rust-analyzer.rustfmt.extraArgs": [
-        "--edition",
-        "2024"
-    ],
 }
