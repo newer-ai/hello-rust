@@ -6,6 +6,7 @@ mod iterator_tests;
 mod memo_tests;
 mod pattern_matching_tests;
 mod smart_point_tests;
+mod string_tests;
 mod struct_and_enum_tests;
 mod threadpool;
 mod trait_tests;
